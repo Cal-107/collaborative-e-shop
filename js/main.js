@@ -136,15 +136,16 @@ products.forEach(e => {
 
 buyBtn.addEventListener('click', function(){
     if (cartList.length == 0) {
-        alert('Attenzione, nel carrello non sono presenti prodotti');
+        alert('attenzione, il carrelo è vuoto');
     } else if (cartList.length > 0) {
-        if (confirm('Se procedi, proseguirai al pagamento, ed il tuo carrello verrà svuotato!')) {
-            cartList.splice(0);
-            cartCounter.classList.add('d-none')
+        if (confirm('Se procedi, proseguirai al pagamento, ed il tuo carrello verrà svuotato!'))  {
+        cartList.splice(0);
+        cartCounter.classList.add('d-none');
         };
     };
 
     cartCounter.innerText = cartList.length;
+
 });
 
 // funzioni
@@ -165,17 +166,30 @@ function wishListCheck(wishList, e, favBtn, favCounter) {
             const toDelete = wishList.indexOf(title);
             wishList.splice(toDelete, 1);
         }
+
         if (wishList.length != 0) {
             favCounter.classList.remove('d-none');
-        } else if (wishList.length == 0) {
-            favCounter.classList.add('d-none')
+        } else if (wishList.length === 0) {
+            favCounter.classList.add('active-animation-rev');
+            setTimeout(() => {
+                favCounter.classList.remove('active-animation-rev');
+            }, 500);
+
+            setTimeout(() => {
+            favCounter.classList.add('d-none');
+            }, 800);
+            
         }
 
         favCounter.innerText = wishList.length;
+        favCounter.classList.add('active-animation');
+        setTimeout(() => {
+            favCounter.classList.remove('active-animation');
+        }, 500);
     });
 }
 
-// quando si clicca sul bottone del carrello, si esegue un controllo nell'array cartList, se il titolo non è presente nell'array, lo si pusha
+// quando si clicca sul bottone del carrello, si pusha l'elemento nell'array
 // il contatore nell'header stampa il numero di prodotti nel cartello
 function cartListCheck(cartList, e, cartBtn, cartCounter) {
     const title = e.title;
@@ -184,6 +198,11 @@ function cartListCheck(cartList, e, cartBtn, cartCounter) {
         if (cartList.length != 0) {
             cartCounter.classList.remove('d-none');
         }
+    
         cartCounter.innerText = cartList.length;
+        cartCounter.classList.add('active-animation');
+        setTimeout(() => {
+            cartCounter.classList.remove('active-animation');
+        }, 500);
     });
 }
